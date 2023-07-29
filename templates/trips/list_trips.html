@@ -1,0 +1,149 @@
+{% extends 'shared/base.html' %}
+
+{% load get_value %}
+{% block content %}
+    <div id="pre-header" class="container" style="height: 40px">
+        <!-- Spacing above header -->
+    </div>
+
+    <!-- Top Menu -->
+
+    <!-- End Top Menu -->
+
+    <div id="content-top-border" class="container">
+    </div>
+    <!-- === END HEADER === -->
+    <!-- === BEGIN CONTENT === -->
+    <div id="content">
+        <div class="container background-white">
+            <div class="row margin-vert-40">
+                <!-- Begin Sidebar Menu -->
+
+                <!-- End Sidebar Menu -->
+                <div class="col-md-9">
+                    <h2 class="margin-bottom-30">ALL TRIPS</h2>
+                    <!-- Accordion -->
+
+                    <!-- End Accordion -->
+
+                    <!-- Accordion - Alternative -->
+                    <div id="accordion2" class="panel-group alternative">
+                        <div class="panel panel-default">
+                            {% if trips %}
+                                {% for trip in trips %}
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title ">
+
+                                            <a class="accordion-toggle" href="" data-parent="#accordion2"
+                                               data-toggle="collapse">
+                                                {{ trip.name_trip }}
+                                            </a>
+                                            <div class="">
+
+                                                {% if is_liked_by_user|get_value:trip.id %}
+                                                    <a href="{% url 'like trip' trip.id %}">
+                                                        <div class="fa-thumbs-up "> Likes: {{ trip.likes_count }}</div>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'like trip' trip.id %}">
+                                                        <div class="fa-thumbs-o-up ">
+                                                            Likes: {{ trip.likes_count }}</div>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2-One" class="accordion-body collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                {% for pic in trip.tripimage_set.all %}
+                                                    <div class="col-md-5">
+
+                                                        <img src="{{ pic.image.url }}" alt="filler image">
+
+                                                    </div>
+                                                {% endfor %}
+                                                <div class="col-md-7 pull-right">
+
+                                                    <p class="">{{ trip.description }} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="accordion" class="panel-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" href="#collapse-{{ trip.id }}"
+                                                       data-parent="#accordion" data-toggle="collapse">
+                                                        Comments
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse-{{ trip.id }}" class="accordion-body collapse in">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            {% if comments|get_comment:trip.id %}
+                                                                {% for comment in comments|get_comment:trip.id %}
+                                                                    <div class="box">
+                                                                        <h5><u>{{ comment.user }}</u>:
+                                                                            <em>{{ comment.comment }}</em></h5>
+                                                                        <hr>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <div class="box">
+                                                                    <h3>There are no comments. </h3>
+                                                                </div>
+                                                            {% endif %}
+
+                                                            <div class="box">
+                                                                 {% if request.user.is_authenticated %}
+                                                                <form method="post"
+                                                                      action="{% url 'comment trip' trip.id %}">
+                                                                    {% csrf_token %}
+                                                                    {{ comment_form }}
+                                                                    <button class="btn btn-primary mt-2" type="submit">
+                                                                        Add comment
+                                                                    </button>
+                                                                </form>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" href="#collapse2-One" data-parent="#accordion2"
+                                           data-toggle="collapse">
+
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2-One" class="accordion-body collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h3 href="" class="no-margin no-padding">No trips yet</h3>
+                                                <p></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

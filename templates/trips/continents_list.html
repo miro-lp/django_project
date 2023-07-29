@@ -1,0 +1,81 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+ {% block content %}
+<div id="pre-header" class="container" style="height: 40px">
+                <!-- Spacing above header -->
+            </div>
+
+            <!-- Top Menu -->
+
+            <!-- End Top Menu -->
+
+            <div id="content-top-border" class="container">
+            </div>
+            <!-- === END HEADER === -->
+            <!-- === BEGIN CONTENT === -->
+            <div id="content">
+                <div class="container background-white">
+                    <div class="row margin-vert-40">
+                        <!-- Begin Sidebar Menu -->
+
+                        <!-- End Sidebar Menu -->
+                        <div class="col-md-9">
+                            <h2 class="margin-bottom-30">ALL CONTINENTS</h2>
+                            <!-- Accordion -->
+
+                            <!-- End Accordion -->
+
+                            <!-- Accordion - Alternative -->
+                            <div id="accordion2" class="panel-group alternative">
+                                <div class="panel panel-default">
+                                    {% if continent_list %}
+                                        {% for continent in continent_list %}
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" href="#collapse-{{ continent.id }}" data-parent="#accordion2" data-toggle="collapse">
+                                                {{ continent.continent_name }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse-{{ continent.id }}" class="accordion-body collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <img src="{{continent.image.url}}" alt="filler image">
+                                                </div>
+                                                <div class="col-md-7">
+                                                   <a href="{% url 'list trips' continent.id %}" ><h3 class="no-margin no-padding">See all trips in {{ continent.continent_name }}</h3></a>
+                                                    <p>{{ continent.description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" href="#collapse2-One" data-parent="#accordion2" data-toggle="collapse">
+                                                No continent
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2-One" class="accordion-body collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <h3 href="" class="no-margin no-padding">No trips yet</h3>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                </div>
+
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

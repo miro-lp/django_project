@@ -1,0 +1,77 @@
+{% extends 'shared/base.html'%}
+
+ {% block content %}
+<div class="container background-white">
+                    <div class="row margin-vert-30">
+                        <div class="col-md-12">
+                            <h2>About Me</h2>
+                            <div class="row">
+                                <div class="col-md-6 animate fadeIn">
+                                    {% if profile.profile_image %}
+                                    <img src="{{ profile.profile_image.url }}" alt="about-me" class="margin-top-10">
+                                    {% else %}
+                                    <img src="/static/img/fillers/aboutme.jpeg" alt="about-me" class="margin-top-10">
+                                    {% endif %}
+                                    <ul class="list-inline about-me-icons margin-vert-20">
+                                        <li>
+                                            <a href="{% url 'my list trips' %}">
+                                                <i class="fa-lg fa-border fa-globe">my trips</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'add trip' %}">
+                                                <i class="fa-lg fa-border fa-picture-o"> add trips</i>
+                                            </a>
+                                        </li>
+                                        <li>
+
+                                        </li>
+                                        <li>
+
+                                        </li>
+                                        <li>
+
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'profile edit' %}">
+                                                <i class="fa-lg fa-border fa-edit">edit me</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 margin-bottom-10 animate fadeInRight">
+                                    <h3 class="padding-top-10 pull-left">{{ profile.first_name }} {{ profile.last_name }}
+
+                                        <small>- Traveler - </small>
+                                    </h3>
+                                    <div class="clearfix"></div>
+                                    <h4>
+                                        <em>{{ profile.about_me }}</em>
+                                    </h4>
+
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row animate fadeInUp">
+                                <h2 class="text-center margin-top-10">{{ profile.motto }}</h2>
+
+                            </div>
+                            <hr class="margin-bottom-40">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <!-- Accordion -->
+                                    <div id="accordion" class="panel-group">
+
+
+
+                                    </div>
+                                    <!-- End Accordion -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

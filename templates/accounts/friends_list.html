@@ -1,0 +1,91 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div id="pre-header" class="container" style="height: 40px">
+        <!-- Spacing above header -->
+    </div>
+
+    <!-- Top Menu -->
+
+    <!-- End Top Menu -->
+
+    <div id="content-top-border" class="container">
+    </div>
+    <!-- === END HEADER === -->
+    <!-- === BEGIN CONTENT === -->
+    <div id="content">
+        <div class="container background-white">
+            <div class="row margin-vert-40">
+                <!-- Begin Sidebar Menu -->
+
+                <!-- End Sidebar Menu -->
+                <div class="col-md-9">
+                    <h2 class="margin-bottom-30">ALL FRIENDS</h2>
+                    <!-- Accordion -->
+
+                    <!-- End Accordion -->
+
+                    <!-- Accordion - Alternative -->
+                    <div id="accordion2" class="panel-group alternative">
+                        <div class="panel panel-default">
+                            {% if travelprofile_list %}
+                                {% for profile in travelprofile_list %}
+
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" href="" data-parent="#accordion2"
+                                               data-toggle="collapse">
+                                                {{ profile.first_name }} {{ profile.last_name }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2-One" class="accordion-body collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                {% if profile.profile_image %}
+                                                    <div class="col-md-5">
+                                                        <img src="{{ profile.profile_image.url }}" alt="filler image">
+                                                    </div>
+                                                {% else %}
+                                                    <div class="col-md-5">
+                                                        <img src="/static/img/fillers/aboutme.jpeg" alt="filler image">
+                                                    </div>
+                                                {% endif %}
+                                                <div class="col-md-7">
+                                                    <p>
+                                                    <h3 class="no-margin no-padding">{{ profile.motto }}</h3></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" href="#collapse2-One" data-parent="#accordion2"
+                                           data-toggle="collapse">
+                                            Friends
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2-One" class="accordion-body collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h3 href="" class="no-margin no-padding">No friends yet</h3>
+                                                <p></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

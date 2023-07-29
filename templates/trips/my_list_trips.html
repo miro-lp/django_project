@@ -1,0 +1,126 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+    <div id="pre-header" class="container" style="height: 40px">
+        <!-- Spacing above header -->
+    </div>
+
+    <!-- Top Menu -->
+
+    <!-- End Top Menu -->
+
+    <div id="content-top-border" class="container">
+    </div>
+    <!-- === END HEADER === -->
+    <!-- === BEGIN CONTENT === -->
+    <div id="content">
+        <div class="container background-white">
+            <div class="row margin-vert-40">
+                <!-- Begin Sidebar Menu -->
+
+                <!-- End Sidebar Menu -->
+                <div class="col-md-9">
+                    <h2 class="margin-bottom-30">ALL TRIPS</h2>
+                    <!-- Accordion -->
+
+                    <!-- End Accordion -->
+
+                    <!-- Accordion - Alternative -->
+                    <div id="accordion2" class="panel-group alternative">
+                        <div class="panel panel-default">
+                            {% if my_trips %}
+                                {% for trip in my_trips %}
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" href="" data-parent="#accordion2"
+                                               data-toggle="collapse">
+                                                {{ trip.name_trip }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2-One" class="accordion-body collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            {% for pic in trip.tripimage_set.all %}
+                                                <div class="col-md-5">
+
+                                                    <img src="{{ pic.image.url }}" alt="filler image">
+
+                                                </div>
+                                            {% endfor %}
+                                            <div class="col-md-7">
+
+                                                <p class="">{{ trip.description }} </p>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <a href="{% url 'edit trip' trip.id %}"
+                                                           class="btn btn-primary pull-right">Edit</a>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{% url 'delete trip' trip.id %}"
+                                                           class="btn btn-primary pull-right" type="submit">Delete</a>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" href="#collapse2-One" data-parent="#accordion2"
+                                           data-toggle="collapse">
+
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2-One" class="accordion-body collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <h3 href="" class="no-margin no-padding">No trips yet</h3>
+                                                <p></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            </div>
+
+                        </div>
+                        <div class="text-center">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li><a href="">&laquo;</a></li>
+                                {% endif %}
+
+                                {% if page_obj.has_previous %}
+                                    <li>
+                                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                                    </li>
+                                {% endif %}
+                                <li class="active"><a href="#">{{ page_obj.number }}</a></li>
+                                {% if page_obj.has_next %}
+                                    <li>
+                                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li><a href="">&raquo;</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

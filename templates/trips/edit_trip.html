@@ -1,0 +1,50 @@
+{% extends 'shared/base.html'%}
+
+ {% block content %}
+<div id="content">
+                <div class="container background-white">
+                    <div class="container">
+                        <div class="row margin-vert-30">
+                            <!-- Login Box -->
+                            <div class="col-md-6 col-md-offset-3 col-sm-offset-3">
+                                <form class="login-page" method="post" action="{% url 'edit trip' trip.id%}" enctype="multipart/form-data">
+                                    <div class="login-header margin-bottom-30">
+                                        <h2>YouTrip</h2>
+                                    </div>
+                                    {% csrf_token %}
+                                    {{ form }}
+                                    <div class="login-header margin-bottom-30">
+                                        <h3>Add new photo</h3>
+                                        {{ form_image }}
+                                    </div>
+
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <button class="btn btn-primary pull-right" type="submit">Save</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                {% for image in images %}
+                                <div class="col-md-5">
+
+                                    <img src="{{ image.image.url}}" alt="filler image">
+                                <a href="{% url 'delete image' image.id %}" > Delete </a>
+
+                                </div>
+                                {% endfor %}
+
+
+                            </div>
+                            <!-- End Login Box -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock %}
